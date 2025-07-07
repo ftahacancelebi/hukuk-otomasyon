@@ -1,0 +1,7 @@
+backend/node_modules
+backend/generated/prisma
+
+backend/src/generated/prisma
+
+frontend/node_modules
+
