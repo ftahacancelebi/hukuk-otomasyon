@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
+import { Car } from "@phosphor-icons/react";
 import {
   FormControl,
   FormField,
@@ -10,6 +11,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { DatePicker } from "@/components/ui/date-picker";
+
 import type { FormData } from "../multi-step-form";
 
 export function InsurancePolicyStep() {
@@ -28,7 +31,8 @@ export function InsurancePolicyStep() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">
+        <h3 className="text-lg font-medium flex items-center gap-2">
+          <Car size={24} weight="duotone" className="text-primary" />
           Sigorta Poliçesi & Araç Bilgileri
         </h3>
         <p className="text-sm text-muted-foreground">
@@ -42,12 +46,12 @@ export function InsurancePolicyStep() {
           name="policeBaslangicTarihi"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Poliçe Başlangıç Tarihi</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
+                <DatePicker
+                  label="Poliçe Başlangıç Tarihi"
                   placeholder="Poliçe başlangıç tarihini seçin"
-                  {...field}
+                  value={field.value || ""}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <CustomFormMessage fieldName="policeBaslangicTarihi" />
@@ -60,12 +64,12 @@ export function InsurancePolicyStep() {
           name="policeBitisTarihi"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Poliçe Bitiş Tarihi</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
+                <DatePicker
+                  label="Poliçe Bitiş Tarihi"
                   placeholder="Poliçe bitiş tarihini seçin"
-                  {...field}
+                  value={field.value || ""}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <CustomFormMessage fieldName="policeBitisTarihi" />
@@ -101,7 +105,7 @@ export function InsurancePolicyStep() {
             <FormItem>
               <FormLabel>Sigortalı Araç Plakası</FormLabel>
               <FormControl>
-                <Input placeholder="34 ABC 123" {...field} />
+                <Input placeholder="Örn: 34ABC123" {...field} />
               </FormControl>
               <CustomFormMessage fieldName="sigortaliPlaka" />
             </FormItem>
@@ -115,7 +119,7 @@ export function InsurancePolicyStep() {
             <FormItem>
               <FormLabel>Karşı Taraf Plakası</FormLabel>
               <FormControl>
-                <Input placeholder="34 XYZ 456" {...field} />
+                <Input placeholder="Örn: 34XYZ456" {...field} />
               </FormControl>
               <CustomFormMessage fieldName="karsiPlaka" />
             </FormItem>
@@ -131,7 +135,7 @@ export function InsurancePolicyStep() {
               <FormControl>
                 <Input
                   type="number"
-                  placeholder="50000"
+                  placeholder="Örn: 50000"
                   {...field}
                   onChange={(e) =>
                     field.onChange(parseFloat(e.target.value) || undefined)
@@ -152,7 +156,7 @@ export function InsurancePolicyStep() {
               <FormControl>
                 <Input
                   type="number"
-                  placeholder="100000"
+                  placeholder="Örn: 100000"
                   {...field}
                   onChange={(e) =>
                     field.onChange(parseFloat(e.target.value) || undefined)

@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
+import { Users } from "@phosphor-icons/react";
 import {
   FormControl,
   FormField,
@@ -27,9 +28,12 @@ export function PartyInformationStep() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Taraf Bilgileri</h3>
+        <h3 className="text-lg font-medium flex items-center gap-2">
+          <Users size={24} weight="duotone" className="text-primary" />
+          Taraf Bilgileri
+        </h3>
         <p className="text-sm text-muted-foreground">
-          Başvuran, vekil ve ilgili dava bilgilerini girin.
+          Dava taraflarının bilgilerini girin.
         </p>
       </div>
 

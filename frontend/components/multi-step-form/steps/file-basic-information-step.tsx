@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
+import { FolderOpen } from "@phosphor-icons/react";
 import {
   FormControl,
   FormField,
@@ -27,9 +28,12 @@ export function FileBasicInformationStep() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Dosya Temel Bilgileri</h3>
+        <h3 className="text-lg font-medium flex items-center gap-2">
+          <FolderOpen size={24} weight="duotone" className="text-primary" />
+          Dosya Temel Bilgileri
+        </h3>
         <p className="text-sm text-muted-foreground">
-          Bu dosya için temel tanımlayıcıları girin.
+          Dosyanın temel bilgilerini girin.
         </p>
       </div>
 

@@ -157,16 +157,28 @@ export function MultiStepForm() {
 
     if (isValid && currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
+      console.log(
+        `Navigating to step ${currentStep + 2} - No HTTP request made`
+      );
     }
   };
 
   const prevStep = () => {
+    // Only navigate backwards - NO HTTP request
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
+      console.log(`Navigating to step ${currentStep} - No HTTP request made`);
     }
   };
 
   const onSubmit = async (data: FormData) => {
+    // Extra safety check: Only submit if we're on the final step
+    if (currentStep !== steps.length - 1) {
+      console.log("Form submission blocked - not on final step");
+      return;
+    }
+
+    console.log("🚀 Making HTTP request to create file...");
     setIsSubmitting(true);
     try {
       // Prepare data for backend - convert string numbers to numbers and filter empty strings
@@ -227,7 +239,8 @@ export function MultiStepForm() {
         body: JSON.stringify(formattedData),
       });
 
-      console.log("Başarılı yanıt:", result);
+      console.log("File created successfully:", result);
+      alert("Dosya başarıyla oluşturuldu!");
 
       // Form stays open, no reset, no redirect
     } catch (error) {
@@ -248,19 +261,19 @@ export function MultiStepForm() {
 
   const getFieldsForStep = (step: number): (keyof FormData)[] => {
     switch (step) {
-      case 0: // File Basic Information
+      case 0:
         return ["foyNo"];
-      case 1: // Party Information
+      case 1:
         return [];
-      case 2: // Insurance & Vehicle
+      case 2:
         return [];
-      case 3: // Accident Information
+      case 3:
         return [];
-      case 4: // Payment Information
+      case 4:
         return [];
-      case 5: // Damage Assessment
+      case 5:
         return [];
-      case 6: // Review
+      case 6:
         return [];
       default:
         return [];
@@ -270,7 +283,7 @@ export function MultiStepForm() {
   const CurrentStepComponent = steps[currentStep].component;
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="w-full p-6">
       <Card>
         <CardHeader>
           <div className="flex justify-between items-center mb-4">
@@ -327,7 +340,10 @@ export function MultiStepForm() {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={prevStep}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    prevStep();
+                  }}
                   disabled={currentStep === 0}
                   className="flex items-center gap-2"
                 >
@@ -339,14 +355,22 @@ export function MultiStepForm() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800"
+                    onClick={() => {
+                      console.log(
+                        "📤 Submit button clicked - Will make HTTP request"
+                      );
+                    }}
                   >
-                    {isSubmitting ? "Oluşturuluyor..." : "Dosya Oluştur"}
+                    {isSubmitting ? "Oluşturuluyor..." : " Dosya Oluştur"}
                   </Button>
                 ) : (
                   <Button
                     type="button"
-                    onClick={nextStep}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      nextStep();
+                    }}
                     className="flex items-center gap-2"
                   >
                     Sonraki

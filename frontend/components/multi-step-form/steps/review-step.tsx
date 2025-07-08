@@ -1,6 +1,19 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
+import {
+  CheckCircle,
+  FolderOpen,
+  Users,
+  Car,
+  Warning,
+  Calculator,
+  CreditCard,
+  TrendUp,
+  TrendDown,
+  Check,
+  X,
+} from "@phosphor-icons/react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -44,7 +57,10 @@ export function ReviewStep() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Dosya Özeti</h3>
+        <h3 className="text-lg font-medium flex items-center gap-2">
+          <CheckCircle size={24} weight="duotone" className="text-primary" />
+          Dosya Özeti
+        </h3>
         <p className="text-sm text-muted-foreground">
           Girmiş olduğunuz bilgileri kontrol edin ve onaylayın.
         </p>
@@ -54,7 +70,10 @@ export function ReviewStep() {
         {/* Dosya Temel Bilgileri */}
         <Card>
           <CardHeader>
-            <CardTitle>Dosya Bilgileri</CardTitle>
+            <CardTitle className="flex items-center justify-center text-center  font-extrabold gap-2">
+              <FolderOpen size={20} weight="duotone" className="text-primary" />
+              Dosya Bilgileri
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="flex justify-between">
@@ -85,7 +104,10 @@ export function ReviewStep() {
         {/* Taraf Bilgileri */}
         <Card>
           <CardHeader>
-            <CardTitle>Taraf Bilgileri</CardTitle>
+            <CardTitle className="flex items-center justify-center text-center font-extrabold gap-2">
+              <Users size={20} weight="duotone" className="text-primary" />
+              Taraf Bilgileri
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {data.basvuran && (
@@ -118,7 +140,10 @@ export function ReviewStep() {
         {/* Sigorta & Araç Bilgileri */}
         <Card>
           <CardHeader>
-            <CardTitle>Sigorta & Araç</CardTitle>
+            <CardTitle className="flex items-center justify-center text-center font-extrabold gap-2">
+              <Car size={20} weight="duotone" className="text-primary" />
+              Sigorta & Araç
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {data.policeBaslangicTarihi && (
@@ -171,7 +196,10 @@ export function ReviewStep() {
         {/* Kaza Bilgileri */}
         <Card>
           <CardHeader>
-            <CardTitle>Kaza Bilgileri</CardTitle>
+            <CardTitle className="flex items-center justify-center text-center font-extrabold gap-2">
+              <Warning size={20} weight="duotone" className="text-primary" />
+              Kaza Bilgileri
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {data.kazaTarihi && (
@@ -191,86 +219,153 @@ export function ReviewStep() {
       </div>
 
       {/* Finansal Özet */}
-      <Card>
+      <Card className="border-2 border-primary/20">
         <CardHeader>
-          <CardTitle>Finansal Özet</CardTitle>
+          <CardTitle className="text-lg text-primary flex items-center justify-center text-center font-extrabold gap-2">
+            <Calculator size={20} weight="duotone" className="text-primary" />
+            Finansal Özet
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Ödemeler */}
-            <div>
-              <h4 className="font-medium mb-3">Ödemeler</h4>
+            <div className="p-4 rounded-lg border-2 border-green-300 bg-gradient-to-br from-green-50 via-green-100 to-emerald-50 shadow-md">
+              <h4 className="font-semibold mb-3 text-green-800 flex items-center gap-2">
+                <CreditCard
+                  size={18}
+                  weight="duotone"
+                  className="text-green-700"
+                />
+                Ödemeler
+              </h4>
               <div className="space-y-2">
                 {data.asilOdemeTutari && (
                   <div className="flex justify-between text-sm">
                     <span>Asıl Ödeme:</span>
-                    <span>{formatCurrency(data.asilOdemeTutari)}</span>
+                    <span className="font-medium text-green-800">
+                      {formatCurrency(data.asilOdemeTutari)}
+                    </span>
                   </div>
                 )}
                 {data.dogrudanOdemeTutari && (
                   <div className="flex justify-between text-sm">
                     <span>Doğrudan Ödeme:</span>
-                    <span>{formatCurrency(data.dogrudanOdemeTutari)}</span>
+                    <span className="font-medium text-green-800">
+                      {formatCurrency(data.dogrudanOdemeTutari)}
+                    </span>
                   </div>
                 )}
                 <Separator />
-                <div className="flex justify-between font-medium">
+                <div className="flex justify-between font-bold ">
                   <span>Toplam Ödeme:</span>
-                  <span>{formatCurrency(toplamOdeme)}</span>
+                  <span className="font-extrabold text-md text-green-800">
+                    {formatCurrency(toplamOdeme)}
+                  </span>
                 </div>
               </div>
             </div>
 
             {/* Hasar Değerlendirmesi */}
-            <div>
-              <h4 className="font-medium mb-3">Tahmini Hasarlar</h4>
+            <div className="p-4 rounded-lg border-2 border-orange-300 bg-gradient-to-br from-orange-50 via-orange-100 to-amber-50 shadow-md">
+              <h4 className="font-semibold mb-3 text-orange-800 flex items-center gap-2">
+                <Calculator
+                  size={18}
+                  weight="duotone"
+                  className="text-orange-700"
+                />
+                Tahmini Hasarlar
+              </h4>
               <div className="space-y-2">
                 {data.tahminiAracHasari && (
                   <div className="flex justify-between text-sm">
                     <span>Araç Hasarı:</span>
-                    <span>{formatCurrency(data.tahminiAracHasari)}</span>
+                    <span className="font-medium text-orange-800">
+                      {formatCurrency(data.tahminiAracHasari)}
+                    </span>
                   </div>
                 )}
                 {data.tahminiDegerKaybi && (
                   <div className="flex justify-between text-sm">
                     <span>Değer Kaybı:</span>
-                    <span>{formatCurrency(data.tahminiDegerKaybi)}</span>
+                    <span className="font-medium text-orange-800">
+                      {formatCurrency(data.tahminiDegerKaybi)}
+                    </span>
                   </div>
                 )}
                 {data.tahminiEkspertizUcreti && (
                   <div className="flex justify-between text-sm">
                     <span>Ekspertiz Ücreti:</span>
-                    <span>{formatCurrency(data.tahminiEkspertizUcreti)}</span>
+                    <span className="font-medium text-orange-800">
+                      {formatCurrency(data.tahminiEkspertizUcreti)}
+                    </span>
                   </div>
                 )}
                 <Separator />
-                <div className="flex justify-between font-medium">
+                <div className="flex justify-between font-bold">
                   <span>Toplam Hasar:</span>
-                  <span>{formatCurrency(toplamTahminiHasar)}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Bakiye */}
-            <div>
-              <h4 className="font-medium mb-3">Durum</h4>
-              <div className="space-y-2">
-                <div className="flex justify-between font-medium text-lg">
-                  <span>Net Bakiye:</span>
-                  <span
-                    className={bakiye >= 0 ? "text-green-600" : "text-red-600"}
-                  >
-                    {formatCurrency(Math.abs(bakiye))}
+                  <span className="font-extrabold text-md text-orange-800">
+                    {formatCurrency(toplamTahminiHasar)}
                   </span>
                 </div>
-                <Badge
-                  variant={bakiye >= 0 ? "default" : "destructive"}
-                  className="w-full justify-center"
-                >
-                  {bakiye >= 0 ? "Fazla Ödeme" : "Eksik Ödeme"}
-                </Badge>
               </div>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Enhanced Total Summary Card */}
+      <Card className="w-full border-2 border-primary/20 bg-gradient-to-r from-primary/5 to-primary/10 shadow-lg">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-2xl text-center text-primary flex items-center justify-center gap-2 font-extrabold">
+            <Calculator size={20} weight="duotone" className="text-primary" />
+            Genel Finansal Durum
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="text-center">
+              <div className="text-sm text-muted-foreground mb-1">
+                Toplam Ödeme
+              </div>
+              <div className="text-xl font-bold text-green-600">
+                {formatCurrency(toplamOdeme)}
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-sm text-muted-foreground mb-1">
+                Net Sonuç
+              </div>
+              <div
+                className={`text-3xl font-bold ${
+                  bakiye >= 0 ? "text-slate-600" : "text-red-600"
+                }`}
+              >
+                {formatCurrency(Math.abs(bakiye))}
+              </div>
+            </div>
+            <div className="text-center">
+              <div className="text-sm text-muted-foreground mb-1">
+                Toplam Hasar
+              </div>
+              <div className="text-xl font-bold text-orange-600">
+                {formatCurrency(toplamTahminiHasar)}
+              </div>
+            </div>
+          </div>
+          <Badge
+            variant={bakiye >= 0 ? "default" : "destructive"}
+            className="text-base px-6 py-2"
+          >
+            {bakiye > 0 ? "Fazla Ödeme Durumu" : "Eksik Ödeme Durumu"}
+          </Badge>
+          <div className="mt-4 flex justify-center">
+            <div
+              className={`h-1 w-32 rounded-full bg-gradient-to-r ${
+                bakiye >= 0
+                  ? "from-blue-300 via-blue-500 to-blue-300"
+                  : "from-red-300 via-red-500 to-red-300"
+              }`}
+            ></div>
           </div>
         </CardContent>
       </Card>

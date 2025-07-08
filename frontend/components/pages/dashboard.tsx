@@ -106,7 +106,7 @@ export function Dashboard() {
       case "active":
         return <Badge className="bg-slate-200 text-slate-800">Aktif</Badge>;
       case "pending":
-        return <Badge className="bg-slate-300 text-slate-900">Beklemede</Badge>;
+        return <Badge className="bg-slate-300 text-slate-700">Beklemede</Badge>;
       case "completed":
         return (
           <Badge className="bg-slate-700 text-slate-100">Tamamlandı</Badge>
@@ -144,7 +144,7 @@ export function Dashboard() {
                 <Icon className="h-4 w-4 text-slate-500" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-slate-900">
+                <div className="text-2xl font-bold text-slate-700">
                   {stat.value}
                 </div>
                 <p className="text-xs text-slate-600">
@@ -163,7 +163,7 @@ export function Dashboard() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-slate-900">Son Davalar</CardTitle>
+                <CardTitle className="text-slate-700">Son Davalar</CardTitle>
                 <CardDescription className="text-slate-600">
                   En son eklenen ve güncellenen davalar
                 </CardDescription>
@@ -183,7 +183,7 @@ export function Dashboard() {
                 >
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
-                      <span className="font-medium text-slate-900">
+                      <span className="font-medium text-slate-700">
                         {case_.title}
                       </span>
                       {getStatusBadge(case_.status)}
@@ -210,7 +210,7 @@ export function Dashboard() {
         {/* Upcoming Deadlines */}
         <Card className="border-slate-200">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-slate-900">
+            <CardTitle className="flex items-center space-x-2 text-slate-700">
               <Clock className="w-4 h-4" />
               <span>Yaklaşan Görevler</span>
             </CardTitle>
@@ -223,7 +223,7 @@ export function Dashboard() {
               {upcomingDeadlines.map((deadline, index) => (
                 <div key={index} className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-medium text-slate-900">
+                    <span className="text-sm font-medium text-slate-700">
                       {deadline.title}
                     </span>
                     <Badge
@@ -250,7 +250,7 @@ export function Dashboard() {
       {/* Quick Actions */}
       <Card className="border-slate-200">
         <CardHeader>
-          <CardTitle className="text-slate-900">Hızlı İşlemler</CardTitle>
+          <CardTitle className="text-slate-700">Hızlı İşlemler</CardTitle>
           <CardDescription className="text-slate-600">
             Sık kullanılan işlemlere hızlı erişim
           </CardDescription>

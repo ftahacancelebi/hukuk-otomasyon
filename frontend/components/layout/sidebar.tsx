@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,24 +18,22 @@ import {
   Menu,
   X,
 } from "lucide-react";
-
-interface SidebarProps {
-  activeSection: string;
-  onSectionChange: (section: string) => void;
-}
+import Image from "next/image";
 
 const navigation = [
-  { id: "dashboard", name: "Dashboard", icon: Home },
-  { id: "cases", name: "Davalar", icon: FileText },
-  { id: "new-case", name: "Yeni Dava", icon: Plus },
-  { id: "review", name: "Gözden Geçir", icon: Search },
-  { id: "clients", name: "Müvekkiller", icon: Users },
-  { id: "calendar", name: "Takvim", icon: Calendar },
-  { id: "reports", name: "Raporlar", icon: BarChart3 },
+  { id: "dashboard", name: "Dashboard", icon: Home, href: "/dashboard" },
+  { id: "cases", name: "Davalar", icon: FileText, href: "/cases" },
+  { id: "new-case", name: "Yeni Dava", icon: Plus, href: "/new-case" },
+  { id: "review", name: "Gözden Geçir", icon: Search, href: "/review" },
+  { id: "clients", name: "Müvekkiller", icon: Users, href: "/clients" },
+  { id: "calendar", name: "Takvim", icon: Calendar, href: "/calendar" },
+  { id: "reports", name: "Raporlar", icon: BarChart3, href: "/reports" },
 ];
 
-export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
+export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div
@@ -51,11 +50,17 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
         >
           {!isCollapsed && (
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-slate-700 rounded-lg flex items-center justify-center">
-                <FileText className="w-4 h-4 text-white" />
+              <div className="items-center justify-center p-2">
+                <Image
+                  src="/hukuk_kusu.svg"
+                  alt="logo"
+                  width={40}
+                  height={40}
+                  className="w-10 h-10 ms-2 "
+                />
               </div>
-              <span className="text-lg font-semibold text-slate-900 ms-2">
-                Hukuk Kuşu
+              <span className="text-2xl font-bold text-slate-700 ">
+                mubasir
               </span>
             </div>
           )}
@@ -77,7 +82,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
         <nav className="flex-1 p-4 space-y-2">
           {navigation.map((item) => {
             const Icon = item.icon;
-            const isActive = activeSection === item.id;
+            const isActive = pathname === item.href;
 
             return (
               <Button
@@ -90,7 +95,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
                     ? "bg-slate-700 text-white hover:bg-slate-800"
                     : "text-slate-700 hover:bg-slate-100"
                 }`}
-                onClick={() => onSectionChange(item.id)}
+                onClick={() => router.push(item.href)}
               >
                 <Icon className={`${isCollapsed ? "" : "mr-3"} w-4 h-4`} />
                 {!isCollapsed && <span>{item.name}</span>}

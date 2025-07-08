@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
+import { Warning } from "@phosphor-icons/react";
 import {
   FormControl,
   FormField,
@@ -9,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 import type { FormData } from "../multi-step-form";
 
 export function AccidentInformationStep() {
@@ -27,9 +29,12 @@ export function AccidentInformationStep() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Kaza Bilgileri</h3>
+        <h3 className="text-lg font-medium flex items-center gap-2">
+          <Warning size={24} weight="duotone" className="text-primary" />
+          Kaza Bilgileri
+        </h3>
         <p className="text-sm text-muted-foreground">
-          Kazayla ilgili tarih ve diğer detayları girin.
+          Kaza ile ilgili detayları girin.
         </p>
       </div>
 
@@ -39,12 +44,12 @@ export function AccidentInformationStep() {
           name="kazaTarihi"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Kaza Tarihi</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  placeholder="Kazanın gerçekleştiği tarihi seçin"
-                  {...field}
+                <DatePicker
+                  label="Kaza Tarihi"
+                  placeholder="Kaza tarihini seçin"
+                  value={field.value || ""}
+                  onChange={field.onChange}
                 />
               </FormControl>
               <CustomFormMessage fieldName="kazaTarihi" />

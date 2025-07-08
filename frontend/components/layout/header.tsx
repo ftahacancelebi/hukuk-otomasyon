@@ -19,7 +19,7 @@ export function Header({ title, subtitle }: HeaderProps) {
           {subtitle && <p className="text-sm text-gray-600 mt-1">{subtitle}</p>}
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-10">
           {/* Search */}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -41,16 +41,16 @@ export function Header({ title, subtitle }: HeaderProps) {
           <div className="flex items-center space-x-3">
             <div className="text-right">
               <div className="text-sm font-medium text-gray-900">
-                Av. Ahmet Yılmaz
+                Burakhan Çelebi
               </div>
-              <div className="text-xs text-gray-500">Hukuk Müşaviri</div>
+              <div className="text-xs text-gray-500">Avukat</div>
             </div>
             <Button
               variant="ghost"
               size="sm"
               className="flex items-center space-x-1"
             >
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-slate-700 rounded-full flex items-center justify-center">
                 <User className="w-4 h-4 text-white" />
               </div>
               <ChevronDown className="w-4 h-4" />

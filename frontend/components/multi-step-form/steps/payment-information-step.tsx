@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
+import { CreditCard } from "@phosphor-icons/react";
 import {
   FormControl,
   FormField,
@@ -9,6 +10,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { DatePicker } from "@/components/ui/date-picker";
 import {
   Select,
   SelectContent,
@@ -16,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { FormData } from "../multi-step-form";
 
 export function PaymentInformationStep() {
@@ -34,9 +37,12 @@ export function PaymentInformationStep() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Ödeme Bilgileri</h3>
+        <h3 className="text-lg font-medium flex items-center gap-2">
+          <CreditCard size={24} weight="duotone" className="text-primary" />
+          Ödeme Bilgileri
+        </h3>
         <p className="text-sm text-muted-foreground">
-          Asıl ve doğrudan ödeme bilgilerini girin.
+          Ödeme tutarları ve detaylarını girin.
         </p>
       </div>
 
@@ -56,7 +62,7 @@ export function PaymentInformationStep() {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full">
                         <SelectValue placeholder="Ödeme türünü seçin" />
                       </SelectTrigger>
                     </FormControl>
@@ -77,12 +83,12 @@ export function PaymentInformationStep() {
               name="asilOdemeTarihi"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Ödeme Tarihi</FormLabel>
                   <FormControl>
-                    <Input
-                      type="date"
+                    <DatePicker
+                      label="Ödeme Tarihi"
                       placeholder="Ödeme tarihini seçin"
-                      {...field}
+                      value={field.value || ""}
+                      onChange={field.onChange}
                     />
                   </FormControl>
                   <CustomFormMessage fieldName="asilOdemeTarihi" />
@@ -99,7 +105,7 @@ export function PaymentInformationStep() {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="5000"
+                      placeholder="Örn: 5000"
                       {...field}
                       onChange={(e) =>
                         field.onChange(parseFloat(e.target.value) || undefined)
@@ -116,18 +122,18 @@ export function PaymentInformationStep() {
         {/* Doğrudan Ödeme Bilgileri */}
         <div>
           <h4 className="text-md font-medium mb-4">Doğrudan Ödeme</h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
               control={control}
               name="dogrudanOdemeTarihi"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Doğrudan Ödeme Tarihi</FormLabel>
                   <FormControl>
-                    <Input
-                      type="date"
+                    <DatePicker
+                      label="Doğrudan Ödeme Tarihi"
                       placeholder="Doğrudan ödeme tarihini seçin"
-                      {...field}
+                      value={field.value || ""}
+                      onChange={field.onChange}
                     />
                   </FormControl>
                   <CustomFormMessage fieldName="dogrudanOdemeTarihi" />
@@ -144,7 +150,7 @@ export function PaymentInformationStep() {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="2500"
+                      placeholder="Örn: 2500"
                       {...field}
                       onChange={(e) =>
                         field.onChange(parseFloat(e.target.value) || undefined)
