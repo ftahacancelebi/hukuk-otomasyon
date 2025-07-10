@@ -1,16 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  PlusIcon,
+  FileText,
+  Eye,
+  Pencil,
+  Trash2,
+  Search,
+  Calendar,
+  DollarSign,
+  User,
+  Car,
+  FilePlus,
+  Download,
+  Edit,
+  MoreHorizontal,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -26,16 +36,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Search,
-  Filter,
-  Plus,
-  Eye,
-  Edit,
-  MoreHorizontal,
-  Calendar,
-  User,
-} from "lucide-react";
+import { apiCall, API_ENDPOINTS, API_BASE_URL } from "@/lib/utils";
 
 export function CasesList() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -162,8 +163,8 @@ export function CasesList() {
           <p className="text-gray-600">Toplam {filteredCases.length} dava</p>
         </div>
         <Button>
-          <Plus className="w-4 h-4 mr-2" />
-          Yeni Dava Ekle
+          <PlusIcon className="w-4 h-4 mr-2" />
+          Yeni Dosya Ekle
         </Button>
       </div>
 

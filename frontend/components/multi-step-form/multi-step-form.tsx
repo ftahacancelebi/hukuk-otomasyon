@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { apiRequest, API_CONFIG } from "@/lib/utils";
+import { apiCall, API_ENDPOINTS } from "@/lib/utils";
 
 import { FileBasicInformationStep } from "./steps/file-basic-information-step";
 import { PartyInformationStep } from "./steps/party-information-step";
@@ -23,6 +23,7 @@ import { AccidentInformationStep } from "./steps/accident-information-step";
 import { PaymentInformationStep } from "./steps/payment-information-step";
 import { DamageAssessmentStep } from "./steps/damage-assessment-step";
 import { ReviewStep } from "./steps/review-step";
+import { ResultStep } from "./steps/result-step";
 
 // Define the complete form schema based on the backend File entity
 const formSchema = z.object({
@@ -112,11 +113,22 @@ const steps = [
     description: "Dosyanızı inceleyin ve gönderin",
     component: ReviewStep,
   },
+  {
+    id: "result",
+    title: "Sonuç",
+    description: "İşlem sonucu ve belge yönetimi",
+    component: ResultStep,
+  },
 ];
 
 export function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionResult, setSubmissionResult] = useState<{
+    isSuccess: boolean;
+    error?: string;
+    data?: any;
+  } | null>(null);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -172,9 +184,9 @@ export function MultiStepForm() {
   };
 
   const onSubmit = async (data: FormData) => {
-    // Extra safety check: Only submit if we're on the final step
-    if (currentStep !== steps.length - 1) {
-      console.log("Form submission blocked - not on final step");
+    // Extra safety check: Only submit if we're on the review step (second to last)
+    if (currentStep !== steps.length - 2) {
+      console.log("Form submission blocked - not on review step");
       return;
     }
 
@@ -234,26 +246,29 @@ export function MultiStepForm() {
       console.log("Form gönderildi:", formattedData);
 
       // Make API call to backend using helper function
-      const result = await apiRequest(API_CONFIG.ENDPOINTS.FILES, {
+      const result = await apiCall(API_ENDPOINTS.FILES_CREATE, {
         method: "POST",
         body: JSON.stringify(formattedData),
       });
 
       console.log("File created successfully:", result);
-      alert("Dosya başarıyla oluşturuldu!");
 
-      // Form stays open, no reset, no redirect
+      // Set success result and navigate to result step
+      setSubmissionResult({
+        isSuccess: true,
+        data: result,
+      });
+      setCurrentStep(steps.length - 1); // Navigate to result step
     } catch (error) {
       console.error("Gönderim hatası:", error);
 
-      // Show user-friendly error message
-      if (error instanceof Error) {
-        alert(`Hata: ${error.message}`);
-      } else {
-        alert(
-          "Dosya oluşturulurken bilinmeyen bir hata oluştu. Lütfen tekrar deneyin."
-        );
-      }
+      // Set error result and navigate to result step
+      setSubmissionResult({
+        isSuccess: false,
+        error:
+          error instanceof Error ? error.message : "Bilinmeyen bir hata oluştu",
+      });
+      setCurrentStep(steps.length - 1); // Navigate to result step
     } finally {
       setIsSubmitting(false);
     }
@@ -274,6 +289,8 @@ export function MultiStepForm() {
       case 5:
         return [];
       case 6:
+        return [];
+      case 7:
         return [];
       default:
         return [];
@@ -333,7 +350,15 @@ export function MultiStepForm() {
         <CardContent>
           <FormProvider {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <CurrentStepComponent />
+              {currentStep === steps.length - 1 && submissionResult ? (
+                <CurrentStepComponent
+                  isSuccess={submissionResult.isSuccess}
+                  error={submissionResult.error}
+                  submissionResult={submissionResult.data}
+                />
+              ) : (
+                <CurrentStepComponent />
+              )}
 
               {/* Navigation buttons */}
               <div className="flex justify-between pt-6 border-t">
@@ -351,11 +376,11 @@ export function MultiStepForm() {
                   Önceki
                 </Button>
 
-                {currentStep === steps.length - 1 ? (
+                {currentStep === steps.length - 2 ? (
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800"
+                    className="flex items-center gap-2 bg-slate-700 hover:bg-slate-800"
                     onClick={() => {
                       console.log(
                         "📤 Submit button clicked - Will make HTTP request"
@@ -364,6 +389,9 @@ export function MultiStepForm() {
                   >
                     {isSubmitting ? "Oluşturuluyor..." : " Dosya Oluştur"}
                   </Button>
+                ) : currentStep === steps.length - 1 ? (
+                  // On result step, don't show navigation buttons
+                  <div />
                 ) : (
                   <Button
                     type="button"

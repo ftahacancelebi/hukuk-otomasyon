@@ -14,8 +14,8 @@ const routeConfig = {
     subtitle: "Tüm davalarınızı görüntüleyin ve yönetin",
   },
   "/new-case": {
-    title: "Yeni Dava",
-    subtitle: "Yeni dava dosyası oluşturun",
+    title: "Yeni Dosya",
+    subtitle: "Yeni Dosya dosyası oluşturun",
   },
   "/review": {
     title: "Gözden Geçir",

@@ -170,7 +170,7 @@ export function Dashboard() {
               </div>
               <Button size="sm" className="bg-slate-700 hover:bg-slate-800">
                 <Plus className="w-4 h-4 mr-2" />
-                Yeni Dava
+                Yeni Dosya
               </Button>
             </div>
           </CardHeader>
@@ -259,7 +259,7 @@ export function Dashboard() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <Button className="h-24 flex flex-col space-y-2 bg-slate-700 hover:bg-slate-800">
               <Plus className="w-6 h-6" />
-              <span>Yeni Dava</span>
+              <span>Yeni Dosya</span>
             </Button>
             <Button
               variant="outline"

@@ -1,7 +1,6 @@
 backend/node_modules
-backend/generated/prisma
-
-backend/src/generated/prisma
+backend/generated
+backend/src/templates
 
 frontend/node_modules
 

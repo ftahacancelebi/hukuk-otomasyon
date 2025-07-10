@@ -23,7 +23,7 @@ import Image from "next/image";
 const navigation = [
   { id: "dashboard", name: "Dashboard", icon: Home, href: "/dashboard" },
   { id: "cases", name: "Davalar", icon: FileText, href: "/cases" },
-  { id: "new-case", name: "Yeni Dava", icon: Plus, href: "/new-case" },
+  { id: "new-case", name: "Yeni Dosya", icon: Plus, href: "/new-case" },
   { id: "review", name: "Gözden Geçir", icon: Search, href: "/review" },
   { id: "clients", name: "Müvekkiller", icon: Users, href: "/clients" },
   { id: "calendar", name: "Takvim", icon: Calendar, href: "/calendar" },
